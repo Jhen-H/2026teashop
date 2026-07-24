@@ -1,4 +1,4 @@
-const SHEET_NAME = '訂單';
+const SHEET_NAME = '2026手搖飲點餐記錄';
 const HEADERS = ['送出時間', '姓名', '飲品', '飲用方式', '單價', '數量', '總價'];
 
 function doGet() {
