@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>春水堂｜班級點飲料</title><link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header><p class="eyebrow">CHUN SHUI TANG · CLASS ORDER</p><h1>班級手搖飲點餐</h1><p>選一杯喜歡的茶，讓今天多一點春意。</p></header>
+  <main>
+    <section class="menu-panel" aria-labelledby="menu-title"><div class="section-heading"><span>01</span><div><p>MENU</p><h2 id="menu-title">店內菜單</h2></div></div><img src="menu.jpg" alt="春水堂飲品菜單" class="menu-image"></section>
+    <section class="order-grid">
+      <form id="order-form" class="card" novalidate><div class="section-heading"><span>02</span><div><p>ORDER</p><h2>點一杯</h2></div></div>
+        <label for="name">你的名字</label><input id="name" name="name" autocomplete="name" placeholder="例如：小晴" required>
+        <label for="drink">飲品</label><select id="drink" name="drink" required></select>
+        <label for="variant">飲用方式與尺寸</label><select id="variant" name="variant" required></select>
+        <label for="quantity">杯數</label><div class="quantity"><button type="button" data-step="-1" aria-label="減少杯數">−</button><input id="quantity" name="quantity" type="number" min="1" max="20" value="1" required><button type="button" data-step="1" aria-label="增加杯數">＋</button></div>
+        <button class="submit" type="submit">送出訂單 <span>→</span></button><p id="notice" role="status" aria-live="polite"></p>
+      </form>
+      <aside class="price-card"><p class="eyebrow">LIVE TOTAL</p><h2>本次小計</h2><div class="price"><span id="total">$0</span><small>TWD</small></div><dl><div><dt>選擇飲品</dt><dd id="summary-drink">尚未選擇</dd></div><div><dt>飲用方式</dt><dd id="summary-variant">—</dd></div><div><dt>數量</dt><dd id="summary-quantity">1 杯</dd></div></dl><a href="orders.html">查看目前點餐狀況 →</a></aside>
+    </section>
+  </main><footer>春水堂人文茶館風格 · 班級專用點餐頁</footer><script src="config.js"></script><script src="app.js"></script>
+</body></html>
