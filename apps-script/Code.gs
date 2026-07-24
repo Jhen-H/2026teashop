@@ -8,13 +8,21 @@ function doGet() {
     time: row[0], name: row[1], drink: row[2], variant: row[3],
     unitPrice: row[4], quantity: row[5], total: row[6],
   })).reverse();
-  return ContentService.createTextOutput(JSON.stringify({ ok: true, orders }))
-    .setMimeType(ContentService.MimeType.JSON);
+  return json_({ ok: true, orders });
 }
 
 function doPost(e) {
   try {
-    const data = JSON.parse(e.postData.contents);
+    let data = {};
+    const contentType = (e.postData && e.postData.type) || '';
+    if (contentType.indexOf('application/json') !== -1 && e.postData && e.postData.contents) {
+      data = JSON.parse(e.postData.contents);
+    } else if (contentType.indexOf('application/x-www-form-urlencoded') !== -1 && e.postData && e.postData.contents) {
+      const params = new URLSearchParams(e.postData.contents);
+      data = Object.fromEntries(params.entries());
+    } else {
+      data = e.parameter || {};
+    }
     const sheet = getOrderSheet_();
     sheet.appendRow([
       new Date(), data.name, data.drink, data.variant,
@@ -24,6 +32,14 @@ function doPost(e) {
   } catch (error) {
     return json_({ ok: false, error: String(error) });
   }
+}
+
+function doOptions(e) {
+  return ContentService.createTextOutput('')
+    .setMimeType(ContentService.MimeType.TEXT)
+    .setHeader('Access-Control-Allow-Origin', '*')
+    .setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+    .setHeader('Access-Control-Allow-Headers', 'Content-Type');
 }
 
 function getOrderSheet_() {
@@ -37,5 +53,8 @@ function getOrderSheet_() {
 
 function json_(value) {
   return ContentService.createTextOutput(JSON.stringify(value))
-    .setMimeType(ContentService.MimeType.JSON);
+    .setMimeType(ContentService.MimeType.JSON)
+    .setHeader('Access-Control-Allow-Origin', '*')
+    .setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+    .setHeader('Access-Control-Allow-Headers', 'Content-Type');
 }
